@@ -77,5 +77,9 @@
             @yield('content')
         </main>
     </div>
+    
+    <!-- Vite Scripts -->
+    @vite('resources/js/app.js')
+    
 </body>
 </html>

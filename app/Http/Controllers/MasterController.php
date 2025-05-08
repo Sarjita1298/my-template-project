@@ -19,9 +19,7 @@ class MasterController extends BaseController
     public function dashboard(){
         return view("backend.dashboard");
     }
-    // public function login(){
-    //     return view("auth.login");
-    // }
+  
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -33,12 +31,14 @@ class MasterController extends BaseController
     public function layout(){
         return view("layouts.app");
     }
+
     public function register(){
         return view("auth.register");
     }
+    
     public function logout(){
         return view("layouts.app");
     }
-  
+
 
 }
