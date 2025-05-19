@@ -13,7 +13,7 @@
             <div class="col-sm-6 text-right">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('blogs.index') }}">Blog</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('blogs.index') }}">Blogs</a></li>
                 </ol>
             </div>
         </div>
@@ -49,6 +49,44 @@
                     <th>Blog Title</th>
                     <th>Image</th>
                     <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+             <thead class="table-light">
+                <tr>
+                    <th>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Sr.</span>
+                            <span>
+                                <a href="{{ route('categories.index', ['sort_by' => 'id', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'id' ? 'desc' : 'asc']) }}">
+                                    <i class="fas fa-arrow-up small {{ request('sort_by') === 'id' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                                    <i class="fas fa-arrow-down small {{ request('sort_by') === 'id' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Blog Title</span>
+                            <span>
+                                <a href="{{ route('categories.index', ['sort_by' => 'name', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'name' ? 'desc' : 'asc']) }}">
+                                    <i class="fas fa-arrow-up small {{ request('sort_by') === 'name' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                                    <i class="fas fa-arrow-down small {{ request('sort_by') === 'name' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Created At</span>
+                            <span>
+                                <a href="{{ route('categories.index', ['sort_by' => 'created_at', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'created_at' ? 'desc' : 'asc']) }}">
+                                    <i class="fas fa-arrow-up small {{ request('sort_by') === 'created_at' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                                    <i class="fas fa-arrow-down small {{ request('sort_by') === 'created_at' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </th>
                     <th>Action</th>
                 </tr>
             </thead>

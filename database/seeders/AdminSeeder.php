@@ -17,6 +17,7 @@ class AdminSeeder extends Seeder
             'name' => 'sarjita',
             'email' => 'sarjitachaurasiya@gmail.com',
             'password' => bcrypt('sarjita@1234'),
+
         ]);
     }
 }

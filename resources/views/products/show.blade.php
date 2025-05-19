@@ -25,7 +25,7 @@
 
         <div class="d-flex justify-content-center align-items-center mt-5">
             <div class="card shadow-lg p-4 bg-light" style="width: 550px; border-radius: 15px;">
-                <h4 class="card-title text-center text-primary mb-4" style="font-weight: bold;">Product Details</h4>
+                <h4 class="card-title bg-primary text-center text-white mb-4 fs-3 fw-light" >Product Details</h4>
 
                 <div class="card-body">
                     <p><strong class="text-dark">Product Name:</strong> <span class="text-secondary">{{ $product->name }}</span></p>

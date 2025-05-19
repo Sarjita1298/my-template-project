@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/create-admin', [AdminController::class, 'createAdmin']);
 
-Route::get('/index', [MasterController::class, 'index']);
+Route::get('/index', [MasterController::class, 'layout']);
 
 #  Backend Section
 Route::prefix('admin')->group(function () {
@@ -33,9 +33,14 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change_password');
         Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change_password');
-        Route::post('/update-profile-picture', [ProfileController::class, 'updateProfilePicture'])->name('updateProfilePicture');
-        
+        Route::post('/upload-logo', [ProfileController::class, 'uploadLogo'])->name('upload.logo');
+        Route::post('/upload-logo', [profileController::class, 'uploadLogo'])->name('upload.logo');
+        Route::post('/update-logo-name', [profileController::class, 'updateLogoName'])->name('update.logoName');
+
+        Route::get('profile', [AdminController::class, 'show'])->name('profile.show');
+        Route::post('profile/update-picture', [AdminController::class, 'updatePicture'])->name('profile.updatePicture');
         
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
@@ -51,7 +56,7 @@ Route::prefix('admin')->group(function () {
         Route::get('products/{product:id}', [ProductController::class, 'show'])->name('products.show');
         Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
-        Route::get('products/{product:id}/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
+        Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
        
         Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
         Route::get('blogs/create', [BlogController::class, 'create'])->name('blogs.create');
@@ -67,5 +72,6 @@ Route::prefix('admin')->group(function () {
 
 # Frontend Section
 
-Route::get('/index', [FrontendController::class, 'index']);
+Route::get('/index', [FrontendController::class, 'index'])->name('index');
 
+Route::get('/home', [FrontendController::class, 'home'])->name('home');

@@ -41,6 +41,12 @@ return [
             'provider' => 'users',
         ],
     ],
+      'guards' => [
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -70,6 +76,16 @@ return [
         //     'table' => 'users',
         // ],
     ],
+  
+
+        'providers' => [
+            'admins' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\Admin::class, // make sure Admin model exists
+            ],
+        ],
+
+
 
     /*
     |--------------------------------------------------------------------------

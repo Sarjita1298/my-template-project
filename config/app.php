@@ -14,6 +14,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'logo_name' => env('APP_LOGO_NAME', 'AdminLTE 3'),
+
 
     /*
     |--------------------------------------------------------------------------

@@ -28,26 +28,91 @@
 
         {{-- Header & Search --}}
         <div class="d-flex justify-content-between mb-3 flex-wrap align-items-center">
-            <a href="{{ route('products.create') }}" class="btn btn-primary">+ Create</a>
+            <p class="fs-4">Product Report</p>
     
-            <form method="GET" action="{{ route('products.index') }}" class="d-flex flex-wrap align-items-center gap-2" style="max-width: 60%;">
-                <input type="text" name="search" class="form-control form-control-sm"
-                       placeholder="Search products by category..." value="{{ request('search') }}" style="width: 200px;">
-                <button class="btn btn-sm btn-secondary">Search</button>
-            </form>
+            <a href="{{ route('products.create') }}" class="btn btn-primary">+ Create</a>
+
+        </div>
+         <div class="container-fluid">
+
+        {{-- Header & Search --}}
+     <div class="d-flex justify-content-between mb-3 flex-wrap align-items-center">
+    <form method="GET" action="{{ route('products.index') }}" class="d-flex flex-wrap align-items-center gap-2">
+        <label for="per_page" class="mb-0">Show</label>
+        <select name="per_page" id="per_page" class="form-select form-select-sm w-auto" onchange="this.form.submit()">
+            @foreach([10, 25, 50, 100] as $size)
+                <option value="{{ $size }}" {{ request('per_page', 10) == $size ? 'selected' : '' }}>{{ $size }}</option>
+            @endforeach
+        </select>
+        <span>entries</span>
+    </form>
+    
+       <!-- Right side: Search bar -->
+            <form action="{{ route('products.index') }}" method="GET" class="d-flex gap-2">
+                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search categories..." value="{{ request('search') }}">
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            </form>    
         </div>
 
         {{-- Products Table --}}
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
-                <tr>
-                    <th>Sr</th>
-                    <th>Category Name</th>
-                    <th>Product Name</th>
-                    <th>Image</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
+                <thead class="table-light">
+    <tr>
+        <th>
+            <div class="d-flex justify-content-between align-items-center">
+                <span>Sr</span>
+                <span>
+                    <a href="{{ route('products.index', ['sort_by' => 'id', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'id' ? 'desc' : 'asc']) }}">
+                        <i class="fas fa-arrow-up small {{ request('sort_by') === 'id' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                        <i class="fas fa-arrow-down small {{ request('sort_by') === 'id' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                    </a>
+                </span>
+            </div>
+        </th>
+
+        <th>
+            <div class="d-flex justify-content-between align-items-center">
+                <span>Category Name</span>
+                <span>
+                    <a href="{{ route('products.index', ['sort_by' => 'category_id', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'category_id' ? 'desc' : 'asc']) }}">
+                        <i class="fas fa-arrow-up small {{ request('sort_by') === 'category_id' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                        <i class="fas fa-arrow-down small {{ request('sort_by') === 'category_id' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                    </a>
+                </span>
+            </div>
+        </th>
+
+        <th>
+            <div class="d-flex justify-content-between align-items-center">
+                <span>Product Name</span>
+                <span>
+                    <a href="{{ route('products.index', ['sort_by' => 'name', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'name' ? 'desc' : 'asc']) }}">
+                        <i class="fas fa-arrow-up small {{ request('sort_by') === 'name' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                        <i class="fas fa-arrow-down small {{ request('sort_by') === 'name' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                    </a>
+                </span>
+            </div>
+        </th>
+
+        <th>Product Image</th>
+
+        <th>
+            <div class="d-flex justify-content-between align-items-center">
+                <span>Created At</span>
+                <span>
+                    <a href="{{ route('products.index', ['sort_by' => 'created_at', 'sort_order' => request('sort_order') === 'asc' && request('sort_by') === 'created_at' ? 'desc' : 'asc']) }}">
+                        <i class="fas fa-arrow-up small {{ request('sort_by') === 'created_at' && request('sort_order') === 'asc' ? 'text-dark' : 'text-muted' }}"></i>
+                        <i class="fas fa-arrow-down small {{ request('sort_by') === 'created_at' && request('sort_order') === 'desc' ? 'text-dark' : 'text-muted' }}"></i>
+                    </a>
+                </span>
+            </div>
+        </th>
+
+        <th>Action</th>
+    </tr>
+</thead>
+
             </thead>
             <tbody>
                 @forelse ($products as $key => $product)
@@ -56,12 +121,13 @@
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->name }}</td>
                         <td>
-                            @if ($product->product_image)
-                                <img src="{{ asset('storage/product_image/' . $product->product_image) }}" width="60" height="60" alt="Product Image">
+                            @if (!empty($product->product_image))
+                                <img src="{{ url('my-template-project/public/storage/product_image/' . $product->product_image) }}" width="60" height="60" alt="Product Image">
                             @else
-                                No Image
+                                <span>No Image</span>
                             @endif
                         </td>
+
                         <td>{{ \Carbon\Carbon::parse($product->created_at)->format('d/m/Y') }}</td>
                         <td>
                             <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info">

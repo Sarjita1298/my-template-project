@@ -6,20 +6,31 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+ public function index(Request $request)
 {
+    $perPage = $request->get('per_page', 10);
+    $sortBy = $request->get('sort_by', 'created_at');
+    $sortOrder = $request->get('sort_order', 'desc');
     $search = $request->input('search');
-    $products = Product::where('name', 'LIKE', "%$search%")
-                        ->orWhereHas('category', function($query) use ($search) {
-                            $query->where('name', 'LIKE', "%$search%");
-                        })
-                        ->paginate(10);
 
-    return view('products.index', compact('products'));
+    $products = Product::with('category')
+        ->when($search, function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%$search%")
+                  ->orWhereHas('category', function ($q) use ($search) {
+                      $q->where('name', 'LIKE', "%$search%");
+                  });
+        })
+        ->orderBy($sortBy, $sortOrder)
+        ->paginate($perPage)
+        ->appends($request->only(['search', 'sort_by', 'sort_order', 'per_page']));
+
+    return view('products.index', compact('products', 'perPage', 'sortBy', 'sortOrder'));
 }
+
 
     //     public function index(Request $request)
     // {
@@ -81,9 +92,10 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
-    
+  
+
         $imageName = null;
     
         if ($request->hasFile('image')) {
@@ -126,18 +138,20 @@ class ProductController extends Controller
     
 
     // Destroy method to handle product deletion
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
+ public function destroy($id)
+{
+    $product = Product::findOrFail($id);
 
-        // Delete the product's image if it exists
-        if ($product->image && file_exists(public_path('storage/product_image/' . $product->image))) {
-            unlink(public_path('storage/product_image/' . $product->image));
-        }
-
-        $product->delete();
-    
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+    // Delete the product's image if it exists
+    $imagePath = public_path('storage/product_image/' . $product->image);
+    if ($product->image && file_exists($imagePath)) {
+        unlink($imagePath);
     }
+
+    $product->delete();
+
+    return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+}
+
  
 }

@@ -7,6 +7,8 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 class AdminController extends Controller
 {
@@ -52,37 +54,37 @@ class AdminController extends Controller
         return "Admin created successfully!";
     }
 
-//     public function login(Request $request)
-//     {
-//         $request->validate([
-//             'email' => 'required|email',
-//             'password' => 'required',
-//         ]);
 
-//         $admin = Admin::where('email', $request->email)->first();
 
-//         if ($admin && Hash::check($request->password, $admin->password)) {
-//             Auth::guard('admin')->login($admin);
-//             return redirect()->route('admin.dashboard');
-//         }
+    public function show()
+    {
+        $admin = Auth::guard('admin')->user();
+        return view('backend.profile', compact('admin'));
+    }
 
-//         return back()->withErrors(['email' => 'Invalid credentials']);
-//     }
-// public function createAdmin()
-// {
-//     Admin::create([
-//         'name' => 'sarjita',
-//         'email' => 'sarjitachsurasiya@gmail.com',
-//         'password' => bcrypt('sarjita@1234'),
-//     ]);
+   public function updatePicture(Request $request)
+{
+    $request->validate([
+        'profile_picture' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+    ]);
 
-//     return "Admin created successfully!";
-// }
+    $admin = Auth::guard('admin')->user();
 
-// public function logout()
-// {
-//     Auth::guard('admin')->logout();
-//     return redirect()->route('login');
-// }
+    // Delete old image if exists
+    if ($admin->profile_picture && Storage::disk('public')->exists('profile_pictures/' . $admin->profile_picture)) {
+        Storage::disk('public')->delete('profile_pictures/' . $admin->profile_picture);
+    }
+
+    $filename = uniqid() . '.' . $request->profile_picture->getClientOriginalExtension();
+    $request->file('profile_picture')->storeAs('profile_pictures', $filename, 'public');
+
+    $admin->profile_picture = $filename;
+    $admin->save();
+
+    return redirect()->back()->with('success', 'Profile picture updated successfully.');
+}
 
 }
+
+
+

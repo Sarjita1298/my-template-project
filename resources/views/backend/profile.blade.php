@@ -18,7 +18,7 @@
             <div class="col-sm-6 text-right">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ route('profile.show') }}">Profile</li>
+                    <li class="breadcrumb-item active"><a href="{{ route('profile.show') }}">Profile</a></li>
                 </ol>
             </div>
         </div>
@@ -38,6 +38,25 @@
 
         <div class="row">
             <div class="col-md-6">
+                {{-- <form id="uploadForm" action="{{ route('upload.logo') }}" method="POST" enctype="multipart/form-data" style="display:inline;">
+    @csrf
+    <label for="logoInput" style="cursor:pointer;">
+        <img src="{{ asset('backend/images/AdminLTELogo.png') }}" alt="" style="border-radius:50%;" class="img-circle-2 border" width="60" height="60">
+        <i class="fas fa-camera" style="position: absolute; top: 45px; left: 45px; color: black;"></i>
+    </label>
+    <input type="file" id="logoInput" name="logo" accept="image/*" style="display:none;" onchange="document.getElementById('uploadForm').submit();">
+</form> --}}
+
+{{-- <form action="{{ route('profile.show') }}" method="POST" class="d-flex align-items-center gap-2">
+    @csrf
+    <input type="text" name="logo_name" value="{{ $logo_name }}" class="form-control form-control-sm" placeholder="Enter Logo Name" required style="max-width: 200px;">
+    <button type="submit" class="btn btn-success btn-sm" title="Update Logo Name">
+        <i class="fas fa-check"></i> Update
+    </button>
+</form> --}}
+
+
+
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Profile</h3>
@@ -54,17 +73,29 @@
                                 <label>Email</label>
                                 <input type="email" name="email" class="form-control" value="{{ old('email', $admin->email) }}" required>
                             </div>
-                            <div class="form-group">
-                                <label>Profile Picture</label>
-                                <input type="file" name="profile_picture" class="form-control mb-2" accept="image/*">
-                                {{-- <img id="profilePreview" src="{{ $admin->profile_picture ? asset('storage/profile_pictures/' . $admin->profile_picture) : asset('default-avatar.png') }}" class="rounded mt-2 border" width="60" height="100"  alt="Preview"> --}}
-                           </div>                         
+                                     <!-- Inside the Profile form -->
+                            {{-- <div class="form-group">
+                                <label>Profile Image</label>
+                                <input type="file" name="profile_image" class="form-control-file">
+                                @if($admin->profile_image)
+                                    <img src="{{ asset('uploads/profile/' . $admin->profile_image) }}" class="mt-2" width="80" height="80" style="object-fit:cover; border-radius:50%;">
+                                @endif
+                            </div> --}}
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary w-100">Update Profile</button>
                         </div>
+                        
                     </form>
+                    <form id="updateLogoNameForm" action="{{ route('update.logoName') }}" method="POST" class="d-flex align-items-center">
+                    @csrf
+                    <input type="text" name="logo_name" value="{{ old('logo_name', $logo_name) }}" class="form-control " placeholder="Enter Logo Name" required>
+                    <button type="submit" class="btn btn-primary btn-sm ml-2" title="Update Name">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </form>
                 </div>
+                  
             </div>
 
             <div class="col-md-6">
