@@ -19,7 +19,11 @@
 
         </aside>
 
+        @yield('script')
+
+
     </div>
     
 </body>
 </html>
+

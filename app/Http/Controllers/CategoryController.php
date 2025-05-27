@@ -111,7 +111,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('categories.show', $category->slug)->with('success', 'Category updated successfully!');
+        return redirect()->route('categories.index', $category->slug)->with('success', 'Category updated successfully!');
     }
 
     public function destroy($id)

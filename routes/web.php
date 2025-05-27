@@ -8,7 +8,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FrontendController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,7 +55,7 @@ Route::prefix('admin')->group(function () {
         Route::get('products', [ProductController::class, 'index'])->name('products.index');
         Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('products', [ProductController::class, 'store'])->name('products.store'); 
-        Route::get('products/{product:id}', [ProductController::class, 'show'])->name('products.show');
+        Route::get('products/info/{id}', [ProductController::class, 'info'])->name('products.info');
         Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
@@ -63,8 +65,44 @@ Route::prefix('admin')->group(function () {
         Route::post('blogs', [BlogController::class, 'store'])->name('blogs.store'); 
         Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
         Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update'); 
-        Route::get('blogs/{blogs:id}', [BlogController::class, 'show'])->name('blogs.show');       
+        Route::get('blogs/info/{id}', [BlogController::class, 'info'])->name('blogs.info');
         Route::get('blogs/{blogs:id}/destroy', [BlogController::class, 'destroy'])->name('blogs.destroy');
+
+
+
+
+
+
+
+
+
+
+               
+        Route::get('reports', [ReportController::class, 'inde
+        
+        
+        
+        
+        
+        
+        
+        x'])->name('reports.index');
+        Route::get('reports/create', [ReportController::class, 'create'])->name('reports.create');
+        Route::post('reports', [ReportController::class, 'store'])->name('reports.store'); 
+        Route::get('/reports/{id}/edit', [ReportController::
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        class, 'edit'])->name('reports.edit');
+        Route::put('/reports/{id}', [ReportController::class, 'update'])->name('reports.update'); 
+        Route::get('reports/info/{id}', [ReportController::class, 'info'])->name('reports.info');
+        Route::get('reports/{reports:id}/destroy', [ReportController::class, 'destroy'])->name('reports.destroy');
 
 
     });
@@ -75,3 +113,16 @@ Route::prefix('admin')->group(function () {
 Route::get('/index', [FrontendController::class, 'index'])->name('index');
 
 Route::get('/home', [FrontendController::class, 'home'])->name('home');
+Route::get('contact',[FrontendController::class,'contact'])->name('contact');                                                           
+
+
+
+
+
+
+
+
+
+
+
+

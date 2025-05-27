@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class BlogController extends Controller
@@ -20,75 +21,87 @@ public function create(Request $request)
 {
     return view('blogs.create');
 }
+
 public function store(Request $request)
 {
     $request->validate([
-        'blog_title' => 'required|string|max:255',
-        'blog_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        'title' => 'required|string|max:255',
+        'slug' => 'required|string|max:255|unique:blogs,slug',
+        'content' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    if ($request->hasFile('blog_image')) {
-        $image = $request->file('blog_image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('storage/blogs'), $imageName);
-    } else {
-        $imageName = 'default.jpg';
+    $data = $request->only('title', 'slug', 'content');
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('uploads/blogs'), $imageName);
+        $data['image'] = 'uploads/blogs/' . $imageName;
     }
 
-    Blog::create([
-        'blog_title' => $request->input('blog_title'),
-        'blog_image' => $imageName,
-    ]);
+    Blog::create($data);
 
-    return redirect()->route('blogs.index')->with('success', 'Blog created successfully!');
+    return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
 }
+
+
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
         return view('blogs.edit', compact('blog'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'blog_title' => 'required|string|max:255',
-            'blog_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-        ]);
+ public function update(Request $request, $id)
+{
+    $blog = Blog::findOrFail($id);
 
-        $blog = Blog::findOrFail($id);
-        $blog->blog_title = $request->blog_title;
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'slug' => 'required|string|max:255|unique:blogs,slug,' . $blog->id,
+        'content' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        if ($request->hasFile('blog_image')) {
-            $image = $request->file('blog_image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('storage/blogs'), $imageName);
-            $blog->blog_image = $imageName;
+    $data = $request->only('title', 'slug', 'content');
+
+    if ($request->hasFile('image')) {
+        // Delete the old image if it exists
+        if ($blog->image && file_exists(public_path($blog->image))) {
+            unlink(public_path($blog->image));
         }
 
-        $blog->save();
-
-        return redirect()->route('blogs.show', $blog->id)->with('success', 'Blog updated successfully!');
-    }
-    public function show($id)
-{
-    $blog = Blog::findOrFail($id);
-    return view('blogs.show', compact('blog'));
-}
-
-public function destroy($id)
-{
-    $blog = Blog::findOrFail($id);
-
-    $imagePath = public_path('uploads/blogs/' . $blog->blog_image);
-
-    if ($blog->blog_image && file_exists($imagePath)) {
-        unlink($imagePath);
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('uploads/blogs'), $imageName);
+        $data['image'] = 'uploads/blogs/' . $imageName;
     }
 
-    $blog->delete();
+    $blog->update($data);
 
-    return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+    return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
 }
+
+        public function info($id)
+        {
+            $bloginfo = Blog::findOrFail($id);
+            return view('blogs.show', compact('bloginfo'));
+        }
+
+        public function destroy($id)
+        {
+            $blog = Blog::findOrFail($id);
+
+            $imagePath = public_path('uploads/blogs/' . $blog->blog_image);
+
+            if ($blog->blog_image && file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            $blog->delete();
+
+            return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+        }
 
 
 }

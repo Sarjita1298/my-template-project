@@ -12,5 +12,10 @@ class FrontendController extends Controller
      public function home(){
     return view("frontend.home");
    }
+    
+   public function contact(){
 
+   return view(view: "frontend.contact");
+
+   }
 }   

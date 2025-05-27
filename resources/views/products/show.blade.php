@@ -1,51 +1,74 @@
-@extends('backend.master')
-@section('title', 'View Product')
 
-@section('content')
-@include('backend.layout.alert')
+<div class="modal-header">
+    <h5 class="modal-title fs-2">Product Details : {{ $productInfo->product_name }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>Column Name</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Category</td>
+                        <td>{{ $productInfo->category_id ? $productInfo->category->name : 'No Category Found' }}</td>
+                    </tr>
+                   
+                    <tr>
+                        <td>Product Name</td>
+                        <td>{{ $productInfo->product_name }}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Product Image</td>
+                        <td>
+                                  @if($productInfo->product_image)
+                                        <div class="col-md-12 text-center my-3">
+                                            <strong>Product Image:</strong><br>
+                                            <img src="{{ asset('storage/products/' . $productInfo->product_image) }}" alt="Product Image" style="max-width: 300px; height: auto; border-radius: 5px;">
+                                        </div>
+                                  @endif
 
-<section class="content-header">
-    <div class="container">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Product Details</h1>
-            </div>
-            <div class="col-sm-6 text-right">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-                </ol>
-            </div>
+        
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Product short description</td>
+                        <td>{{ $productInfo->product_short_description }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Product long description</td>
+                        <td>{{ $productInfo->product_long_description }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Product Price</td>
+                        <td>{{ $productInfo->product_price }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Product review star</td>
+                        <td>{{ $productInfo->product_review_star }}</td>
+                    </tr>
+                 
+                   
+                 
+                   
+                </tbody>
+            </table>
         </div>
-    </div>
-</section>
+    </div>        
+</div>
 
-<section class="content">
-    <div class="container">
+<div class="modal-footer d-flex justify-content-between align-items-center">
+    <small>Created At: {{ $productInfo->created_at->format('d M, Y h:i A') }}</small>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>
 
-        <div class="d-flex justify-content-center align-items-center mt-5">
-            <div class="card shadow-lg p-4 bg-light" style="width: 550px; border-radius: 15px;">
-                <h4 class="card-title bg-primary text-center text-white mb-4 fs-3 fw-light" >Product Details</h4>
-
-                <div class="card-body">
-                    <p><strong class="text-dark">Product Name:</strong> <span class="text-secondary">{{ $product->name }}</span></p>
-                    <p><strong class="text-dark">Category:</strong> <span class="text-secondary">{{ $product->category->name }}</span></p>
-
-                    <p><strong class="text-dark">Image:</strong><br>
-                        @if ($product->product_image)
-                            <img src="{{ asset('storage/product_image/' . $product->product_image) }}" width="200" class="img-thumbnail mt-2 border border-primary">
-                        @else
-                            <span class="text-muted">No Image Available</span>
-                        @endif
-                    </p>
-
-                    <div class="text-center mt-4">
-                        <a href="{{ route('products.index') }}" class="btn btn-outline-primary px-4">Back to Products</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-@endsection

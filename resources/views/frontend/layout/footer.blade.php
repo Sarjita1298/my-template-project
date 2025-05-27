@@ -4,7 +4,7 @@
         <div class="col-md-3 col-sm-6">
             <div class="widget widget-footer widget-footer-text">
                 <div class="title-block title-on-dark title-xs">
-                    <h4>About Amwal</h4>
+                    <h4>About Us</h4>
                     <span class="bottom-title"></span>
                 </div>
                 <p>The lysine contingency - it's intended to prevent the spread of the animals is case they ever got off the island. Dr. Wu inserted a gene that makes.</p>

@@ -25,7 +25,7 @@
 									 data-transform_in="y:-100px;opacity:0;s:1500;e:Power3.easeOut;" 
 									 data-transform_out="y:-100;opacity:0;s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;" 
 									data-start="1000" 
-									><p >LEAVE MONEY PROBLEM TO US & JUST </p>
+									><p >Welcome To Shopping Values </p>
 								</div>
 								<!-- LAYER NR. 2 -->
 								<div class="tp-caption tp-resizeme sl-s2" 
@@ -39,7 +39,7 @@
 									data-whitespace="['nowrap','nowrap','nowrap','normal']"
 									data-fontsize="['60','50','40','30']"
 									data-lineheight="['auto','auto','auto','40']"
-									><p >FOCUS ON YOUR BUSINESS</p>
+									><p >E-Commerce</p>
 								</div>
 								<!-- LAYER NR. 3 -->
 								<div class="tp-caption tp-resizeme sl-s3" 
@@ -91,7 +91,7 @@
 									 data-transform_in="y:-100px;opacity:0;s:1500;e:Power3.easeOut;" 
 									 data-transform_out="y:-100;opacity:0;s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;" 
 									data-start="1000" 
-									><p >LEAVE MONEY PROBLEM TO US & JUST </p>
+									><p >Welcome To Shopping Values </p>
 								</div>
 								<!-- LAYER NR. 2 -->
 								<div class="tp-caption tp-resizeme sl-s2" 
@@ -105,7 +105,7 @@
 									data-whitespace="['nowrap','nowrap','nowrap','normal']"
 									data-fontsize="['60','50','40','30']"
 									data-lineheight="['auto','auto','auto','40']"
-									><p >FOCUS ON YOUR BUSINESS</p>
+									><p >E-Commerce</p>
 								</div>
 								<!-- LAYER NR. 3 -->
 								<div class="tp-caption tp-resizeme sl-s3" 
@@ -157,7 +157,7 @@
 									 data-transform_in="y:-100px;opacity:0;s:1500;e:Power3.easeOut;" 
 									 data-transform_out="y:-100;opacity:0;s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;" 
 									data-start="1000" 
-									><p >LEAVE MONEY PROBLEM TO US & JUST </p>
+									><p >Welcome To Shopping Values </p>
 								</div>
 								<!-- LAYER NR. 2 -->
 								<div class="tp-caption tp-resizeme sl-s2" 
@@ -171,7 +171,7 @@
 									data-whitespace="['nowrap','nowrap','nowrap','normal']"
 									data-fontsize="['60','50','40','30']"
 									data-lineheight="['auto','auto','auto','40']"
-									><p >FOCUS ON YOUR BUSINESS</p>
+									><p >E-Commerce</p>
 								</div>
 								<!-- LAYER NR. 3 -->
 								<div class="tp-caption tp-resizeme sl-s3" 

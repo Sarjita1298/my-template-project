@@ -10,19 +10,19 @@
             <div class="form-control bg-light">{{ $category->name }}</div>
         </div>
 
-        <div class="mb-2">
+        {{-- <div class="mb-2">
             <label class="fw-bold">Slug:</label>
             <div class="form-control bg-light">{{ $category->slug ?? 'N/A' }}</div>
-        </div>
+        </div> --}}
 
-        <div class="mb-3 text-center">
+        {{-- <div class="mb-3 text-center">
             <label class="fw-bold">Image:</label><br>
             @if($category->image)
                 <img src="{{ asset('storage/category_images/' . $category->image) }}" alt="Category Image" class="img-thumbnail mt-2" style="max-height: 180px;">
                 <div class="mt-2">
                     <a href="{{ asset('storage/category_images/' . $category->image) }}" target="_blank" class="btn btn-outline-primary btn-sm">View</a>
                     <a href="{{ asset('storage/category_images/' . $category->image) }}" download class="btn btn-outline-success btn-sm ms-2">Download</a>
-                </div>
+                </div> --}}
             @else
                 <p class="text-muted">No image uploaded</p>
             @endif

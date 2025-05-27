@@ -1,21 +1,29 @@
 <style>
     .profile-img {
-        width: 95px;
-        height: 95px;
+        width: 55px;
+        height: 55px;
         object-fit: cover;
         border-radius: 50%;
         border: 2px solid #fff;
-        margin-left:10px;
+        margin-left:23px;
     }
 
     .camera-icon {
-        font-size: 12px;
-        padding: 6px;
-        background-color: #343a40;
-        color: #fff;
-        border-radius: 50%;
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    bottom: -5px;
+    left: -10px;
+    background-color: #343a40;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 11px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+      .camera-icon:hover{
+      background-color: #0d6efd;
     }
+ 
     .sidebar .nav-link {
   color: #adb5bd;
   transition: 0.3s ease;
@@ -93,6 +101,14 @@
     border-radius: 0.25rem;
 }
 
+.sidebar-divider {
+    height: 2px;
+    background-color: #6c757d; /* muted gray divider */
+    margin: 10px 15px;
+    opacity: 0.5;
+}
+
+
 
 </style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -114,8 +130,8 @@
         <input type="file" id="logoInput" name="logo" accept="image/*" style="display:none;" onchange="document.getElementById('uploadLogoForm').submit();">
     </form>
 
-    <a href="{{ route('dashboard') }}" class="brand-link">
-  <span class="brand-text font-weight-light fs-2">{{ $logo_name }}</span>
+    <a href="{{ route('dashboard') }}" class="brand-link">{{ $logo_name }}
+  {{-- <span class="brand-text font-weight-light ">{{ $logo_name }}</span> --}}
 </a>
 
  {{-- <a href="{{ route('dashboard') }}" class="brand-link">
@@ -131,6 +147,7 @@
         </button>
     </form> --}}
 </div>
+<div class="sidebar-divider"></div>
 
 @php
     $admin = Auth::guard('admin')->user();
@@ -139,8 +156,8 @@
         : asset('default-avatar.png');
 @endphp
 
-<div class="mt-3 pb-3 mb-3 d-flex align-items-center">
-    <div class="position-relative" style="width: 100px; height: 100px;">
+<div class="mt-3 pb-3 mb-2 d-flex align-items-center">
+    <div class="position-relative" >
         <img src="{{ $profileImage }}" class="profile-img" id="sidebarProfileImg">
 
         <form id="profilePictureForm" action="{{ route('profile.updatePicture') }}" method="POST" enctype="multipart/form-data" class="position-absolute" style="bottom: 5px; right: 5px;">
@@ -153,15 +170,18 @@
     </div>
 
     <!-- Admin Name -->
-   <div class="ml-3">
-  <a href="{{ route('profile.show') }}" class="text-white font-weight-light d-block fs-2">
-    {{ $admin->name ?? 'Admin' }}
-  </a>
-</div>
+   <div class="ml-5 m-0 p-0 pb-9">
+        <a href="{{ route('profile.show') }}" class="text-white font-weight-light d-block ">{{ $admin->name ?? 'Admin' }}
+        {{-- <span class="brand-text font-weight-light "> {{ $admin->name ?? 'Admin' }}</span> --}}
+        {{-- <a href="{{ route('profile.show') }}" class=" text-white font-weight-light">{{ $admin->name ?? 'Admin' }}</a> --}}
+
+        </a>
+   </div>
 
 
 </div>
 
+<div class="sidebar-divider"></div>
 
 
 <!-- Sidebar -->
@@ -169,32 +189,39 @@
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
     <li class="nav-item">
-      <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>Dashboard</p>
-      </a>
-    </li>
+  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+    <i class="nav-icon bi bi-speedometer2"></i>
+    <p>Dashboard</p>
+  </a>
+</li>
 
-    <li class="nav-item">
-      <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-list"></i>
-        <p>Category</p>
-      </a>
-    </li>
+<li class="nav-item">
+  <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-list"></i>
+    <p>Category</p>
+  </a>
+</li>
 
-    <li class="nav-item">
-      <a href="{{ route('products.index') }}" class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-box"></i>
-        <p>Products</p>
-      </a>
-    </li>
+<li class="nav-item">
+  <a href="{{ route('products.index') }}" class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-box"></i>
+    <p>Products</p>
+  </a>
+</li>
 
-    <li class="nav-item">
-      <a href="{{ route('blogs.index') }}" class="nav-link {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-check"></i>
-        <p>Blogs</p>
-      </a>
-    </li>
+<li class="nav-item">
+  <a href="{{ route('blogs.index') }}" class="nav-link {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-blog"></i>
+    <p>Blogs</p>
+  </a>
+</li>
+
+<li class="nav-item">
+  <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-chart-bar"></i>
+    <p>Reports</p>
+  </a>
+</li>
 
   </ul>
 </div>

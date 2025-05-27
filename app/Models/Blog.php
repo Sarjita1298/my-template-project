@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
     class Blog extends Model
 {
     protected $table = 'blogs'; 
-    protected $fillable = ['blog_title','blog_image'];
+    protected $fillable = ['title', 'slug', 'content', 'image'];
     public $timestamps = true;
 }
 
