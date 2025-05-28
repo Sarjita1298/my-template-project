@@ -33,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+
+    Schema::defaultStringLength(191);
+
+
         // $logoName = Setting::where('key', 'logo_name')->value('value') ?? 'AdminLTE 3';      //through .env
         // View::share('logo_name', $logoName);
 

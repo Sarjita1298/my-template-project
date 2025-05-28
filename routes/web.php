@@ -67,42 +67,24 @@ Route::prefix('admin')->group(function () {
         Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update'); 
         Route::get('blogs/info/{id}', [BlogController::class, 'info'])->name('blogs.info');
         Route::get('blogs/{blogs:id}/destroy', [BlogController::class, 'destroy'])->name('blogs.destroy');
-
-
-
-
-
-
-
-
-
-
-               
-        Route::get('reports', [ReportController::class, 'inde
-        
-        
-        
-        
-        
-        
-        
-        x'])->name('reports.index');
+      
+        Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
         Route::get('reports/create', [ReportController::class, 'create'])->name('reports.create');
         Route::post('reports', [ReportController::class, 'store'])->name('reports.store'); 
-        Route::get('/reports/{id}/edit', [ReportController::
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        class, 'edit'])->name('reports.edit');
-        Route::put('/reports/{id}', [ReportController::class, 'update'])->name('reports.update'); 
-        Route::get('reports/info/{id}', [ReportController::class, 'info'])->name('reports.info');
+        Route::get('/reports/{id}/edit', [ReportController::class, 'edit'])->name('reports.edit');
+        Route::put('/reports/{id}', [ReportController::class, 'update'])->name('reports.update');
+        // Route::get('/reports/info/{id}', [ReportController::class, 'info'])->name('reports.info');
         Route::get('reports/{reports:id}/destroy', [ReportController::class, 'destroy'])->name('reports.destroy');
+        Route::get('reports/info/{id}', [ReportController::class, 'info'])->name('reports.info');
+     Route::get('/order/{id}/shipping', [ReportController::class, 'shipping'])->name('order.shipping');
+Route::post('/order/{id}/update-status', [ReportController::class, 'updateStatus'])->name('order.updatestatus');
+
+        Route::post('reports/{id}/approve', [ReportController::class, 'approve'])->name('reports.approve');
+        Route::post('reports/{id}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+        Route::post('reports/{id}/pickup', [ReportController::class, 'pickup'])->name('reports.pickup');
+        Route::post('reports/{id}/refund', [ReportController::class, 'refund'])->name('reports.refund');
+        Route::post('reports/{id}/complete', [ReportController::class, 'complete'])->name('reports.complete');
+
 
 
     });

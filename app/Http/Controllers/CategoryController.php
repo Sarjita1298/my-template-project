@@ -72,7 +72,7 @@ class CategoryController extends Controller
             'image' => $imageName,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route(route: 'categories.index')->with('success', 'Category created successfully.');
     }
 
     public function edit(Category $category)
