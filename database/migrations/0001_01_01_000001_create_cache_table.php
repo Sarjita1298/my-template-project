@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cache', function (Blueprint $table) {
-            $table->string('key')->primary();
+            $table->string('key', 191)->primary();  // 191 chars, mysql utf8mb4 के लिए safe है
             $table->mediumText('value');
             $table->integer('expiration');
         });
 
         Schema::create('cache_locks', function (Blueprint $table) {
-            $table->string('key')->primary();
+            $table->string('key', 191)->primary();  // यहाँ भी 191 char length रखें
             $table->string('owner');
             $table->integer('expiration');
         });

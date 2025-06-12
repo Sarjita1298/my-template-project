@@ -1,110 +1,143 @@
 @extends('frontend.master')
 
-@section('title','Contact Page')
-
 @section('content')
 
-<section class="no-padding sh-pricing">
-    <div class="sub-header">
-        <span>WELCOME TO OUR WORLD</span>
-        <h3>MY ACCOUNT</h3>
+<section class="sh-contact">
+    <div class="sub-header" style="
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+        url('{{ asset('frontend/images/bg-content/sh-contact.jpg') }}') center center / cover no-repeat;
+    ">
+        <span>CONNECT WITH US</span>
+        <h3>GET IN TOUCH</h3>
         <ol class="breadcrumb">
+           <ol class="breadcrumb">
             <li>
-                <a href="{{ url('/') }}"><i class="fa fa-home"></i> HOME</a>
+                <a href="{{ route('home') }}"><i class="fa fa-home"></i> HOME</a>
             </li>
-            <li class="active">MY ACCOUNT</li>
+            <li >
+                <a href="{{ route('contact') }}"><i class="fa fa-envelope"></i> CONTACT US</a>
+            </li>
         </ol>
+        </ol>
+
     </div>
 </section>
 
-<section class="bg-acc">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="tab-warp-acc desk-pdt-30">
-                    <!-- Nav tabs -->
-                    <ul class="nav tab-style-1 tab-style-2 tab-acc" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#Login" aria-controls="Login" role="tab" data-toggle="tab">Login</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#Register" aria-controls="Register" role="tab" data-toggle="tab">Register</a>
-                        </li>
-                    </ul>
 
-                    <div class="tab-content tab-content-style-1 tab-content-style-2">
-                        <!-- Login Form -->
-                        <div role="tabpanel" class="tab-pane fade in active" id="Login">
-                            <div class="login-warp">
-                                <form action="{{ route('login') }}" method="POST" class="form-contact-warp form-calc-ship cb-form">
-                                    @csrf
-                                    <input name="username" class="form-control" required placeholder="Username" type="text">
-                                    <input name="password" class="form-control" required placeholder="Password" type="password">
-                                    <button type="submit" class="btn-main-color btn-block">Sign In</button>
-                                </form>
-                                <div class="footer-acc">
-                                    <a href="{{ route('password.request') }}">- I've forgotten my password</a>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="remember"> Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Register Form -->
-                        <div role="tabpanel" class="tab-pane fade" id="Register">
-                            <div class="login-warp">
-                                <form action="{{ route('register') }}" method="POST" class="form-contact-warp form-calc-ship cb-form">
-                                    @csrf
-                                    <input name="username" class="form-control" required placeholder="Username" type="text">
-                                    <input name="email" class="form-control" required placeholder="Email" type="email">
-                                    <input name="password" class="form-control" required placeholder="Password" type="password">
-                                    <input name="password_confirmation" class="form-control" required placeholder="ReType Password" type="password">
-                                    <button type="submit" class="btn-main-color btn-block">Sign Up</button>
-                                </form>
-                                <div class="footer-acc">
-                                    <p>Sign Up With:</p>
-                                    <ul class="widget-footer-social-1 footer-post-share social-hover-defaul">
-                                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a class="google" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Register -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Contact Info Boxes -->
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="iconbox-inline">
+					<span class="icon icon-location2"></span>
+					<h4>Head Office</h4>
+					<p class="hidden-text-fix">123, Business Street, City Name</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="iconbox-inline">
+					<span class="icon icon-phone"></span>
+					<h4>Phone Numbers</h4>
+					<p class="hidden-text-fix">+91 12345 67890</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="iconbox-inline">
+					<span class="icon icon-envelop"></span>
+					<h4>E-mail Address</h4>
+					<p class="hidden-text-fix">contact@example.com</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
+<!-- Google Map (Optional: you can remove or update) -->
+<div id="map-canvas" class="map-warp" style="height: 360px;"></div>
+
+<!-- Contact Form -->
+<section>
+	<div class="container">	
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title-block title-contact">
+					<h3>Send a Message</h3>
+					<span class="bottom-title"></span>
+				</div>
+			</div>
+			<div class="form-contact-warp">
+				<form name="contactform" method="post" action={{ route('contact.submit') }}>
+					@csrf
+					<div class="col-md-4">
+						<input type="text" class="form-control" name="name" placeholder="Full Name" required>
+					</div>
+					<div class="col-md-4">
+						<input type="email" class="form-control" name="email" placeholder="Email Address" required>
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" name="subject" placeholder="Subject">
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<textarea name="message" class="form-control" rows="5" placeholder="Comment" required></textarea>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<button type="submit" class="btn-main-color">
+							<i class="fa fa-paper-plane" aria-hidden="true"></i> Submit
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Newsletter Subscription -->
 <section class="bg-subcr-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="subcribe-warp">
-                    <p class="sub-text-subcri">Newsletter for receive</p>
-                    <form class="form-inline form-subcri" method="POST" action="#">
-                        @csrf
-                        <div class="form-group">
-                            <label for="newsletterEmail">
-                                <small>our <span>latest company</span> updates</small>
-                            </label>
-                            <input type="email" name="email" class="form-control" id="newsletterEmail" placeholder="Your E-mail Address" required>
-                        </div>
-                        <button type="submit" class="btn-subcrib">
-                            <i class="fa fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="subcribe-warp">
+          <p class="sub-text-subcri">Newsletter to receive</p>
+          <form class="form-inline form-subcri" action="/subscribe" method="POST">
+            @csrf
+            <div class="form-group">
+              <label for="emailInput"><small>our <span>latest company</span> updates</small></label>
+              <input type="email" class="form-control" id="emailInput" name="email" placeholder="Your E-mail Address" required />
             </div>
+            <button type="submit" class="btn-subcrib">
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            </button>
+          </form>
+          @if(session('success'))
+            <div class="alert alert-success mt-2">
+              {{ session('success') }}
+            </div>
+          @endif
         </div>
+      </div>
     </div>
+  </div>
 </section>
+{{-- 
+@endsection --}}
 
-@endsection
+
+{{-- @section('script')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const header = document.querySelector("header.site-header");
+    const subHeader = document.querySelector(".sub-header");
+
+    if (header && subHeader) {
+        const headerHeight = header.offsetHeight;
+        subHeader.style.marginTop = headerHeight + "px";
+    }
+});
+
+</script>
+    
+@endsection --}}

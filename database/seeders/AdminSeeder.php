@@ -18,7 +18,8 @@ class AdminSeeder extends Seeder
                 'name' => 'Sarjita',
                 'email' => 'sarjitachaurasiya@gmail.com',
                 'password' => bcrypt('sarjita@1234'),
-                // 'profile_picture' => 'optional-profile.jpg', // agar chahe to
+                'profile_picture' => 'optional-profile.jpg', // agar chahe to
+                
             ]);
         }
     }

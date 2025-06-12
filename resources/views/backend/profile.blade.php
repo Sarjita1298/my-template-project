@@ -39,21 +39,21 @@
         <div class="row">
             <div class="col-md-6">
                 {{-- <form id="uploadForm" action="{{ route('upload.logo') }}" method="POST" enctype="multipart/form-data" style="display:inline;">
-    @csrf
-    <label for="logoInput" style="cursor:pointer;">
-        <img src="{{ asset('backend/images/AdminLTELogo.png') }}" alt="" style="border-radius:50%;" class="img-circle-2 border" width="60" height="60">
-        <i class="fas fa-camera" style="position: absolute; top: 45px; left: 45px; color: black;"></i>
-    </label>
-    <input type="file" id="logoInput" name="logo" accept="image/*" style="display:none;" onchange="document.getElementById('uploadForm').submit();">
-</form> --}}
+                        @csrf
+                        <label for="logoInput" style="cursor:pointer;">
+                            <img src="{{ asset('backend/images/AdminLTELogo.png') }}" alt="" style="border-radius:50%;" class="img-circle-2 border" width="60" height="60">
+                            <i class="fas fa-camera" style="position: absolute; top: 45px; left: 45px; color: black;"></i>
+                        </label>
+                        <input type="file" id="logoInput" name="logo" accept="image/*" style="display:none;" onchange="document.getElementById('uploadForm').submit();">
+                    </form> --}}
 
-{{-- <form action="{{ route('profile.show') }}" method="POST" class="d-flex align-items-center gap-2">
-    @csrf
-    <input type="text" name="logo_name" value="{{ $logo_name }}" class="form-control form-control-sm" placeholder="Enter Logo Name" required style="max-width: 200px;">
-    <button type="submit" class="btn btn-success btn-sm" title="Update Logo Name">
-        <i class="fas fa-check"></i> Update
-    </button>
-</form> --}}
+                    {{-- <form action="{{ route('profile.show') }}" method="POST" class="d-flex align-items-center gap-2">
+                        @csrf
+                        <input type="text" name="logo_name" value="{{ $logo_name }}" class="form-control form-control-sm" placeholder="Enter Logo Name" required style="max-width: 200px;">
+                        <button type="submit" class="btn btn-success btn-sm" title="Update Logo Name">
+                            <i class="fas fa-check"></i> Update
+                        </button>
+                    </form> --}}
 
 
 
@@ -73,7 +73,7 @@
                                 <label>Email</label>
                                 <input type="email" name="email" class="form-control" value="{{ old('email', $admin->email) }}" required>
                             </div>
-                                     <!-- Inside the Profile form -->
+                                        <!-- Inside the Profile form -->
                             {{-- <div class="form-group">
                                 <label>Profile Image</label>
                                 <input type="file" name="profile_image" class="form-control-file">
@@ -87,15 +87,17 @@
                         </div>
                         
                     </form>
-                    <form id="updateLogoNameForm" action="{{ route('update.logoName') }}" method="POST" class="d-flex align-items-center">
-                    @csrf
-                    <input type="text" name="logo_name" value="{{ old('logo_name', $logo_name) }}" class="form-control " placeholder="Enter Logo Name" required>
-                    <button type="submit" class="btn btn-primary btn-sm ml-2" title="Update Name">
-                        <i class="fas fa-check"></i>
-                    </button>
-                </form>
+                   <form id="updateLogoNameForm" action="{{ route('update.logoName') }}" method="POST" class="d-flex align-items-center">
+                        @csrf
+                        <input type="text" name="logo_name" id="logo_name" value="{{ old('logo_name', $logo_name ?? 'AdminLTE 3') }}" class="form-control" placeholder="Enter Logo Name" required>
+                        <button type="submit" class="btn btn-primary btn-sm ml-2" title="Update Name">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </form>
+
+                    <div id="updateMessage" style="margin-left:10px;"></div>
                 </div>
-                  
+                    
             </div>
 
             <div class="col-md-6">
@@ -140,6 +142,9 @@
     </div>
 </section>
 
+@endsection
+
+@section('script')
 <script>
     function validatePassword() {
         const newPassword = document.getElementById("new-password").value;
@@ -191,6 +196,39 @@
             };
             reader.readAsDataURL(file);
         }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#updateLogoNameForm').on('submit', function(e){
+        e.preventDefault(); // form submit रोको, AJAX से भेजेंगे
+
+        let logoName = $('#logo_name').val();
+        let token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "{{ route('update.logoName') }}",
+            type: "POST",
+            data: {
+                _token: token,
+                logo_name: logoName,
+            },
+            success: function(response) {
+                if(response.success){
+                    $('#updateMessage').html('<span style="color:green;">'+response.message+'</span>');
+                } else {
+                    $('#updateMessage').html('<span style="color:red;">Something went wrong.</span>');
+                }
+            },
+            error: function(xhr) {
+                let errors = xhr.responseJSON.errors;
+                let errorMsg = '';
+                $.each(errors, function(key, value){
+                    errorMsg += value[0] + '<br>';
+                });
+                $('#updateMessage').html('<span style="color:red;">'+errorMsg+'</span>');
+            }
+        });
     });
 </script>
 

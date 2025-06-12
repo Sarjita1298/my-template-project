@@ -10,6 +10,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CartController;
 
 
 Route::get('/', function () {
@@ -38,8 +40,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change_password');
         Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change_password');
         Route::post('/upload-logo', [ProfileController::class, 'uploadLogo'])->name('upload.logo');
-        Route::post('/upload-logo', [profileController::class, 'uploadLogo'])->name('upload.logo');
-        Route::post('/update-logo-name', [profileController::class, 'updateLogoName'])->name('update.logoName');
+        Route::post('/update-logo-name', [ProfileController::class, 'updateLogoName'])->name('update.logoName');
 
         Route::get('profile', [AdminController::class, 'show'])->name('profile.show');
         Route::post('profile/update-picture', [AdminController::class, 'updatePicture'])->name('profile.updatePicture');
@@ -59,6 +60,8 @@ Route::prefix('admin')->group(function () {
         Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+        Route::get('/products/view/{id}', [ProductController::class, 'info'])->name('productview');
+
        
         Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
         Route::get('blogs/create', [BlogController::class, 'create'])->name('blogs.create');
@@ -76,9 +79,16 @@ Route::prefix('admin')->group(function () {
         // Route::get('/reports/info/{id}', [ReportController::class, 'info'])->name('reports.info');
         Route::get('reports/{reports:id}/destroy', [ReportController::class, 'destroy'])->name('reports.destroy');
         Route::get('reports/info/{id}', [ReportController::class, 'info'])->name('reports.info');
-     Route::get('/order/{id}/shipping', [ReportController::class, 'shipping'])->name('order.shipping');
-Route::post('/order/{id}/update-status', [ReportController::class, 'updateStatus'])->name('order.updatestatus');
+      
+        // Show the shipping form for a specific order
+        Route::get('/orders/{id}/shipping', [ReportController::class, 'showShipping'])->name('order.shipping');
 
+        // Update shipping details for the order
+        Route::post('/orders/{id}/shipping', [ReportController::class, 'updateShipping'])->name('order.shipping.update');
+
+        // Toggle order status (shipped <-> pending)
+        Route::post('/orders/{id}/toggle-status', [ReportController::class, 'toggleStatus'])->name('order.status.toggle');
+              
         Route::post('reports/{id}/approve', [ReportController::class, 'approve'])->name('reports.approve');
         Route::post('reports/{id}/reject', [ReportController::class, 'reject'])->name('reports.reject');
         Route::post('reports/{id}/pickup', [ReportController::class, 'pickup'])->name('reports.pickup');
@@ -88,15 +98,65 @@ Route::post('/order/{id}/update-status', [ReportController::class, 'updateStatus
 
 
     });
+    
 });
 
 # Frontend Section
 
 Route::get('/index', [FrontendController::class, 'index'])->name('index');
-
 Route::get('/home', [FrontendController::class, 'home'])->name('home');
-Route::get('contact',[FrontendController::class,'contact'])->name('contact');                                                           
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact-submit', [FrontendController::class, 'submit'])->name('contact.submit');
+Route::get('/register', [FrontendController::class, 'register'])->name('register');
+Route::get('/password/request', [FrontendController::class, 'passwordrequest'])->name('password.request');
+Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
+Route::get('/shop/product/{id}', [FrontendController::class, 'showSingleProduct'])->name('shop.product');
 
+Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
+Route::get('/your-cart', [FrontendController::class, 'cartpage'])->name('your-cart');
+Route::post('/your-cart', [FrontendController::class, 'cartpage'])->name('your-cart');
+Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart-update', [FrontendController::class, 'addToCart'])->name('cart.update');
+
+Route::post('/add-to-cart/{id}', [FrontendController::class, 'addToCart'])->name('cart.add');
+
+// Route::post('/add-to-cart', [FrontendController::class, 'addToCart'])->name('cart.add');
+Route::get('/get-districts', [FrontendController::class, 'getDistricts'])->name('get.districts');
+Route::get('/get-pincode', [FrontendController::class, 'getPincode'])->name('get.pincode');
+Route::get('/product/{id}', [FrontendController::class, 'showSingleProduct'])->name('product.single');
+Route::post('/update-shipping', [FrontendController::class, 'updateShipping'])->name('shipping.update');
+Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::get('/account', [FrontendController::class, 'account'])->name('accountpage');
+Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('/singleblog', [FrontendController::class, 'singleblog'])->name('singleblog');
+Route::post('/checkout/submit', [FrontendController::class, 'submitCheckout'])->name('checkout.submit');
+
+
+Route::post('/subscribe', [FrontendController::class, 'store'])->name('subscribe.store');
+
+
+
+// Cart related routes
+// Route::get('/cart', [CartController::class, 'index'])->name('cart');                    // Show cart page
+// Route::get('/your-cart', [CartController::class, 'cartPage'])->name('your-cart');         // Another cart page (GET)
+// Route::post('/your-cart', [CartController::class, 'cartPage'])->name('your-cart');        // Update cart (POST)
+
+// Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');      // Add product to cart
+
+// Route::get('/get-districts', [CartController::class, 'getDistricts'])->name('get.districts');   // Get districts (AJAX)
+// Route::get('/get-pincode', [CartController::class, 'getPincode'])->name('get.pincode');          // Get pincode (AJAX)
+
+// Route::post('/update-shipping', [CartController::class, 'updateShipping'])->name('shipping.update'); // Update shipping details
+
+
+Route::get('/customer/logout', [CustomerController::class, 'logout'])->name('customer.logout');
+Route::get('/customer/dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
+
+Route::get('/customer/profile', [CustomerController::class, 'profileIndex'])->name('customerprofile.index');
+Route::put('/customer/profile/update', [CustomerController::class, 'profileUpdate'])->name('customerprofile.update');
+
+Route::get('/customer/change-password', [CustomerController::class, 'changePasswordForm'])->name('customerpassword.password');
+Route::post('/customer/change-password', [CustomerController::class, 'changePassword'])->name('customerpassword.update');
 
 
 

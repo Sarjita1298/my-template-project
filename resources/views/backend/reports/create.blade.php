@@ -58,7 +58,7 @@
 
         <div class="mb-3">
             <label for="order_status">Order Status</label>
-            <input type="number" name="order_status" class="form-control" value="{{ old('order_status') }}" placeholder="input 0/1" required>
+            <input type="number" name="order_status" class="form-control" value="{{ old('order_status') }}" placeholder="input '0' For Shipped / '1' For Pending" required>
         </div>
 
         <button type="submit" class="btn btn-success">Save Report</button>

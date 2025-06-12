@@ -87,47 +87,42 @@ class ReportController extends Controller
 }
 
 
-    // =====================
-    // Optional Order Actions
-    // =====================
-
-    // public function updateStatus(Request $request, $id)
-    // {
-    //     $report = Report::findOrFail($id);
-    //     $report->order_status = $request->input('order_status');
-    //     $report->save();
-
-    //     return back()->with('success', 'Order status updated.');
-    // }
-    public function updateStatus(Request $request, $id)
+ public function toggleStatus(Request $request, $id)
 {
-      $order = Report::findOrFail($id);
-    $order->order_status = $request->order_status;
-    $order->save();
-    return redirect()->route('reports.index')->with('success', 'Order status updated successfully.');
+    $report = Report::findOrFail($id);
+
+    $report->order_status = $request->order_status; // 'shipped' or 'pending'
+    $report->save();
+
+    return redirect()->back()->with('success', 'Order status updated successfully!');
+}  
+
+
+public function showShipping($id)
+{
+    $order = Report::findOrFail($id);
+    return view('order.shipping', compact('order'));
 }
+  
 
+public function updateShipping(Request $request, $id)
+{
+    $request->validate([
+        'tracking_number' => 'required|string|max:255',
+        'carrier' => 'required|string|max:255',
+        'shipping_date' => 'required|date',
+    ]);
 
-    public function shipping($id)
-    {
-        $report = Report::findOrFail($id);
-        $report->shipping_status = 'Shipped'; // example column
-        $report->save();
+    $order = Report::findOrFail($id);
+    $order->tracking_number = $request->tracking_number;
+    $order->carrier = $request->carrier;
+    $order->shipping_date = $request->shipping_date;
+    $order->save();
 
-        return redirect()->route('reports.index')->with('success', 'Order marked as shipped.');
-    }
-//     public function shipping($id)
-// {
-//     // Logic to handle shipping action
-//     $order = Order::findOrFail($id);
-//     return view('orders.shipping', compact('order'));
-// }
-
-
-    // =====================
-    // Optional Return Actions
-    // =====================
-
+    return redirect()->route('order.shipping', $order->id)
+        ->with('success', 'Shipping details updated successfully.');
+}
+ 
     public function approveReturn($id)
     {
         $report = Report::findOrFail($id);

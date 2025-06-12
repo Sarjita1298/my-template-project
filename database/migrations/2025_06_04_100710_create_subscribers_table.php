@@ -9,23 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   
-        public function up()
-    {
-    Schema::table('admins', function (Blueprint $table) {
-        $table->rememberToken();
+     public function up()
+{
+    Schema::create('subscribers', function (Blueprint $table) {
+        $table->id();
+        $table->string('email')->unique();
+        $table->timestamps();
     });
-    }
-
-    
+}
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('subscribers');
     }
 };

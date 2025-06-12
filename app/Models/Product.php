@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
-    // Mass assignable fields
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'category_id',
         'product_name',
@@ -17,23 +19,28 @@ class Product extends Model
         'product_price',
         'product_review_star',
         'product_image',
+        'rating',
+        'popularity'
     ];
 
-    // Enable timestamps
+    /**
+     * Indicates if the model should be timestamped.
+     */
     public $timestamps = true;
 
-    // Use 'id' for route model binding
+    /**
+     * Get the key used for route model binding.
+     */
     public function getRouteKeyName(): string
     {
         return 'id';
     }
 
     /**
-     * Product belongs to a Category.
+     * A product belongs to a category.
      */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
-        // Explicitly specify foreign and owner keys (optional if using Laravel conventions)
     }
 }

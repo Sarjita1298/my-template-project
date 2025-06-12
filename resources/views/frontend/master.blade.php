@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Your Website')</title>
+    <title>@yield('title', 'Shopping')</title>
 
     {{-- Include CSS & libraries --}}
     @include('frontend.layout.library')
@@ -27,6 +27,10 @@
 
     {{-- Page-specific scripts --}}
     @yield('scripts')
-
+    <script>
+        if (window.location.hash === '#') {
+            history.replaceState(null, null, window.location.href.slice(0, -1));
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,249 @@
+/* === News Card Container === */
+.item-new-list {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* .item-new-list:hover {
+  transform: translateY(-5px);
+} */
+
+/* === Image Wrapper === */
+.feature-new-warp img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+  object-fit:cover;
+}
+
+/* === News Info Section === */
+.box-new-info {
+  padding: 0px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.box-new-info h4 {
+  margin-bottom: 10px;
+}
+
+.box-new-info h4 a {
+  color: #333;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.box-new-info h4 a:hover {
+  color: #ffb600;
+}
+
+/* Uncomment if you want to style .box-new-info paragraphs */
+/*
+.box-new-info p {
+  margin: 4px 0;
+  font-size: 15px;
+  color: #666;
+}
+*/
+
+.new-info p {
+  color: #fff;
+  margin: 5px 0;       /* add some spacing between paragraphs */
+  font-size: 14px;     /* set font size */
+  line-height: 1.4;    /* improve readability */
+}
+
+.new-info p a {
+  color: #ffd966;      /* lighter yellow for links */
+  text-decoration: none;
+}
+
+.new-info p a:hover {
+  color: #ffb600;      /* bright yellow on hover */
+  text-decoration: underline;
+}
+
+.new-info p i {
+  color: #ffb600;      /* star icon color */
+  font-size: 13px;
+  margin-right: 5px;
+  vertical-align: middle; /* aligns icons nicely with text */
+}
+
+
+.box-new-info .fa {
+  margin-right: 6px;
+  color: #999;
+}
+
+/* === Tapo Description Box === */
+.tapo {
+  background-color: #ffffff;
+  padding: 5px;
+  border-radius: 6px;
+  margin-top: 1px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #333;
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.tapo::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to top, #f9f9f9, transparent);
+  pointer-events: none;
+}
+
+.tapo:hover {
+  max-height: none;
+}
+
+.tapo:hover::after {
+  display: none;
+}
+
+/* === Read More Button === */
+.ot-btn.btn-sub-color {
+  background-color: #ffb600;
+  color: #fff;
+  /* padding: 10px 20px; */
+  display: inline-block;
+  border-radius: 1px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  margin-top: 10px;
+  width:120px;
+  height:40px;
+}
+
+.ot-btn.btn-sub-color:hover {
+  background-color: #0a2c4e;
+  text-decoration: none;
+}
+
+/* === Pagination === */
+.pagination {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.pagination li a {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  color: #333;
+  transition: 0.3s;
+}
+
+.pagination li.active a,
+.pagination li a:hover {
+  background: #ffb600;
+  color: #fff;
+  border-color: #ffb600;
+}
+/* === Responsive === */
+@media (max-width: 768px) {
+  .box-new-info {
+    padding: 0px;
+  }
+
+  .tapo {
+    font-size: 13px;
+    max-height: 100px;
+    overflow: auto;
+  }
+
+  .box-new-info h4 a {
+    font-size: 16px;
+  }
+
+  .ot-btn.btn-sub-color {
+    font-size: 13px;
+    padding: 8px 16px;
+    display: inline-block;       /* Ensure it's visible */
+    margin-top: auto;            /* Push button to bottom if needed */
+    align-self: flex-start;      /* Adjust based on layout */
+  }
+}
+
+/* === Flexbox Handling for Consistency === */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust space between columns */
+}
+
+.col-md-6 {
+  flex: 1 1 calc(50% - 20px); 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Spread content evenly */
+}
+
+/* Each card/item */
+.item-new-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 6px;
+}
+
+/* Button inside cards */
+.item-new-list .ot-btn.btn-sub-color {
+  margin-top: auto;
+}
+
+/* Images should be responsive */
+.feature-new-warp img {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: cover;
+}
+
+/* Fix footer going to next line */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #222;
+  color: #fff;
+}
+
+.footer > * {
+  flex: 1 1 auto;
+  min-width: 120px;
+  text-align: center;
+}

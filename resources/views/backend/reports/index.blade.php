@@ -65,9 +65,11 @@ Report
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                <a href="{{ route('order.shipping', $report->id) }}" class="btn btn-success btn-sm">
+                                <a href="{{ route('order.shipping', ['id' => $report->id]) }}" class="btn btn-success btn-sm" title="Update Shipping">
                                     <i class="fas fa-truck"></i>
                                 </a>
+
+
 
                               <!-- Eye Button -->
                                 <button type="button" class="btn btn-primary btn-sm" onclick="getOrderInfo({{ $report->id }})">
@@ -83,7 +85,7 @@ Report
                                     </button>
                                 </form>
 
-                                <form action="{{ route('order.updatestatus', $report->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('order.status.toggle', $report->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     <input type="hidden" name="order_status" value="{{ $report->order_status == 'shipped' ? 'pending' : 'shipped' }}">
                                     <button type="submit" class="btn btn-warning btn-sm">
@@ -91,6 +93,7 @@ Report
                                     </button>
                                 </form>
 
+ 
                                 @if ($report->return_status == 'requested')
                                     <form action="{{ route('return.approve', $report->id) }}" method="POST" style="display:inline;">
                                         @csrf

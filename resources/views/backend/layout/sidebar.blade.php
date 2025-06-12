@@ -120,33 +120,39 @@
 </a> --}}
 
 <div class="d-flex align-items-center p-2">
+
     {{-- Upload Logo Form --}}
     <form id="uploadLogoForm" action="{{ route('upload.logo') }}" method="POST" enctype="multipart/form-data" class="position-relative mr-2">
         @csrf
-        <label for="logoInput" class="brand-logo m-0">
+        <label for="logoInput" class="brand-logo m-0" style="cursor: pointer;">
             <img src="{{ asset('backend/images/AdminLTELogo.png') }}?v={{ time() }}" alt="Logo" />
             <i class="fas fa-camera camera-icon"></i>
         </label>
         <input type="file" id="logoInput" name="logo" accept="image/*" style="display:none;" onchange="document.getElementById('uploadLogoForm').submit();">
     </form>
 
-    <a href="{{ route('dashboard') }}" class="brand-link">{{ $logo_name }}
-  {{-- <span class="brand-text font-weight-light ">{{ $logo_name }}</span> --}}
-</a>
-
- {{-- <a href="{{ route('dashboard') }}" class="brand-link">
-  <span class="brand-text font-weight-light">{{ config('app.logo_name') }}</span>             //  through .env file
-</a> --}}
+    {{-- Logo Name Link --}}
+    <a href="{{ route('dashboard') }}" class="brand-link ml-2">{{ $logo_name ?? 'AdminLTE 3' }}</a>
 
     {{-- Logo Name Update Form --}}
-    {{-- <form id="updateLogoNameForm" action="{{ route('update.logoName') }}" method="POST" class="d-flex align-items-center">
+    <form id="updateLogoNameForm" action="{{ route('update.logoName') }}" method="POST" class="d-flex align-items-center ml-3">
         @csrf
-        <input type="text" name="logo_name"  class="form-control form-control-sm" placeholder="Enter Logo Name" required style="max-width: 150px;">
-        <button type="submit" class="btn btn-success btn-sm ml-2" title="Update Name">
+        <input
+            type="text"
+            name="logo_name"
+            value="{{ old('logo_name', $logo_name ?? 'AdminLTE 3') }}"
+            class="form-control form-control-sm"
+            placeholder="Enter Logo Name"
+            required
+            style="max-width: 150px;"
+        >
+        <button type="submit" class="btn btn-primary btn-sm ml-2" title="Update Name">
             <i class="fas fa-check"></i>
         </button>
-    </form> --}}
+    </form>
+
 </div>
+
 <div class="sidebar-divider"></div>
 
 @php

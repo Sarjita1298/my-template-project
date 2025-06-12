@@ -1,4 +1,6 @@
 @charset "UTF-8";
+
+
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -107,7 +109,7 @@ select {
   border: none;
 }
 .custom-select {
-  background: url(frontend/images/icon/down.png) no-repeat;
+  background: url(/frontend/images/icon/down.png) no-repeat;
   background-position: -webkit-calc(100% - 15px) 17px;
   background-position: calc(100% - 15px) 17px;
   -webkit-background-size: 10px auto;
@@ -118,6 +120,14 @@ select {
 .custom-select:focus {
   border-color: #0a2c4e !important;
 }
+
+.group-title-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
 input[type=text] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -134,6 +144,7 @@ input[type=email] {
 @media (min-width: 1200px) {
   .container {
     width: 1200px;
+
   }
 }
 /* Main Button Style
@@ -1584,18 +1595,57 @@ input[type=email] {
 h3.title-mix {
   font-weight: 300;
 }
+
+
 /* Sub HEader */
 .breadcrumb > li + li::before {
   padding: 0 8px;
-  color: #ccc;
+  color: #242cc9;
   content: ">";
 }
+
+/* Ensure the main site header has proper stacking and spacing */
+header.site-header {
+    z-index: 999;
+    position: relative;
+}
+
+/* Fix sub-header spacing */
 .sub-header {
+    position: relative;
+    z-index: 1;
+    margin-top: 80px; /* add space below header */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    padding-top: 90px;
+    height: 300px;
+    text-align: center;
+}
+
+/* Optional safety reset to ensure other sections don’t touch header */
+section {
+    position: relative;
+    z-index: 1;
+    padding-top: 60px; /* default vertical spacing */
+    padding-bottom: 60px;
+}
+
+/* Responsive adjustment */
+@media screen and (max-width: 768px) {
+    .sub-header {
+        padding-top: 60px;
+        height: auto;
+    }
+}
+
+/* .sub-header {
   height: 300px;
   width: 100%;
   text-align: center;
   padding-top: 90px;
-}
+}*/
 .sub-header span {
   font-size: 21px;
   color: #fff;
@@ -1608,27 +1658,45 @@ h3.title-mix {
   color: #fff;
   margin-bottom: 35px;
 }
-.breadcrumb {
-  margin-bottom: 0;
+ .breadcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding-left: 0;
   background-color: transparent;
+  margin: 0;
 }
+
+.breadcrumb > li {
+  margin: 0 5px;
+  font-size: 16px;
+}
+
+.breadcrumb > li + li::before {
+  content: ">";
+  color: #ffb600;
+  padding: 0 8px;
+}
+
 .breadcrumb > li > a {
   color: #fff;
-  opacity: .6;
-  -webkit-transition: all 0.5s ease-in-out;
-          transition: all 0.5s ease-in-out;
+  opacity: 0.6;
+  transition: all 0.5s ease-in-out;
+  text-decoration: none;
 }
+
 .breadcrumb > li > a:hover {
   opacity: 1;
-}
-.breadcrumb > li.active {
-  opacity: 1;
-  color: #fff;
-}
-.breadcrumb > li > a i {
   color: #ffb600;
-  margin-right: 8px;
+
 }
+
+.breadcrumb > li.active {
+  color: #fff;
+  opacity: 1;
+}
+
 .title-xs {
   font-size: 18px;
   color: #fff;
@@ -1763,7 +1831,7 @@ body.royal_loader {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   text-align: center;
   margin: -90px 0px 0px -90px;
-  background-image: url('../images/loader.html');
+  background-image: url('..frontend/images/loader.html');
   background-repeat: no-repeat;
   background-position: 50% 0;
   padding-top: 80px;
@@ -1877,7 +1945,7 @@ body.royal_loader {
 /* Home 1 About Company*/
 .about-h1 {
   padding-bottom: 0;
-  background: url(frontend/images/bg-content/about-1.png) no-repeat;
+  background: url(/frontend/images/bg-content/about-1.png) no-repeat;
   background-position: top right;
 }
 .demo-about-h1 .iconbox {
@@ -1991,7 +2059,7 @@ body.royal_loader {
 .bg-counter-h1 {
   width: 100%;
   height: 267px;
-  background: url(images/bg-content/ct-h1.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/ct-h1.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -2109,7 +2177,7 @@ body.royal_loader {
 }
 /* Call Back Form Hoem 1 */
 .cb-h1 {
-  background: url(frontend/images/bg-content/cb-h1.png) no-repeat;
+  background: url(/frontend/images/bg-content/cb-h1.png) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
 }
@@ -2219,7 +2287,7 @@ body.royal_loader {
 }
 /* Subcribe Form*/
 .bg-subcr-1 {
-  background: url(images/bg-content/bg-subcri.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-subcri.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   padding: 95px 0 80px 0;
@@ -2301,7 +2369,7 @@ body.royal_loader {
 /* Home 1 Our Project */
 .bg-project-h1 {
   padding-bottom: 30px;
-  background: url(images/bg-content/bg-project-h1.jpg);
+  background: url(/frontend/images/bg-content/bg-project-h1.jpg);
 }
 .project-h1-warp {
   margin-top: 50px;
@@ -2414,7 +2482,7 @@ body.royal_loader {
 /* Home 2 Quote */
 .bg-quote-h2 {
   padding: 90px 0;
-  background: url(images/bg-content/bg-quote-h2.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-quote-h2.jpg) no-repeat;
   background-attachment: fixed;
   -webkit-background-size: cover;
           background-size: cover;
@@ -2631,7 +2699,7 @@ body.royal_loader {
 }
 .bg-pricing-h2 {
   padding: 100px 0 225px 0;
-  background: url(images/bg-content/bg-pricing-h2.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-pricing-h2.jpg) no-repeat;
   background-attachment: fixed;
 }
 .pricing-table .plan {
@@ -2718,7 +2786,7 @@ body.royal_loader {
 /* --------------- */
 /* Home 3 Offer */
 .bg-iconbox-h3 {
-  background: url(images/bg-content/iconbox-h3.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/iconbox-h3.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
 }
@@ -2775,7 +2843,7 @@ body.royal_loader {
 /* Home 3 Quote */
 .bg-quote-h3 {
   padding: 90px 0;
-  background: url(images/bg-content/bg-quote-h3.jpg) repeat;
+  background: url(/frontend/images/bg-content/bg-quote-h3.jpg) repeat;
   background-attachment: fixed;
 }
 .quote-inner-h3 p {
@@ -2806,7 +2874,7 @@ body.royal_loader {
 }
 /* Call Back Home 3 */
 .cb-h3 {
-  background: url(images/bg-content/cb-h3.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/cb-h3.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -2899,7 +2967,7 @@ body.royal_loader {
 }
 /* Strategy Development Home 4 */
 .bg-strategy-h4 {
-  background: url(frontend/images/bg-content/bg-strategy-h4.png) no-repeat;
+  background: url(/frontend/images/bg-content/bg-strategy-h4.png) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
 }
@@ -3041,7 +3109,7 @@ body.royal_loader {
 }
 /* Location Home 4 */
 .bg-location-h4 {
-  background: url(images/bg-content/bg-location-h4.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-location-h4.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3168,7 +3236,7 @@ body.royal_loader {
 }
 /* Call Back Home 5 */
 .cb-h5 {
-  background: url(images/bg-content/cb-h5.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/cb-h5.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
 }
@@ -3316,7 +3384,7 @@ body.royal_loader {
 }
 /* Planning Steps */
 .bg-plan-h5 {
-  background: url(images/bg-content/bg-quote-h3.jpg) repeat;
+  background: url(/frontend/images/bg-content/bg-quote-h3.jpg) repeat;
   background-attachment: fixed;
 }
 .owl-plan-h5 .owl-wrapper-outer {
@@ -3452,13 +3520,13 @@ body.royal_loader {
   z-index: 0;
 }
 .services-h6-warp .background-image {
-  background: url(images/bg-content/services-h4.jpg);
+  background: url(/frontend/images/bg-content/services-h4.jpg);
 }
 /* Counter Up Home 6 */
 .bg-counter-h6 {
   width: 100%;
   height: 323px;
-  background: url(images/bg-content/ct-h6.jpg) repeat;
+  background: url(/frontend/images/bg-content/ct-h6.jpg) repeat;
   background-attachment: fixed;
 }
 .bg-counter-h6 .warp-counter {
@@ -3466,7 +3534,7 @@ body.royal_loader {
 }
 /* Testimonial Home 6 */
 .bg-tw-h6 {
-  background: url(images/bg-content/tw-h6.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/tw-h6.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
 }
@@ -3512,7 +3580,7 @@ body.royal_loader {
 }
 /* Call Back Home 6 */
 .cb-h6 {
-  background: url(images/bg-content/cb-h6.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/cb-h6.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3647,7 +3715,7 @@ body.royal_loader {
 }
 /* Testimonial Home 7 */
 .bg-tw-h7 {
-  background: url(images/bg-content/tw-h7.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/tw-h7.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3667,7 +3735,7 @@ body.royal_loader {
 }
 /* About Home 7 */
 .bg-about-home-7 {
-  background: url(images/bg-content/bg-about-h7.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-about-h7.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3812,7 +3880,7 @@ body.royal_loader {
 }
 /* Team Home 7 */
 .bg-team-h7 {
-  background: url(images/bg-content/bg-team-h7.jpg) repeat;
+  background: url(/frontend/images/bg-content/bg-team-h7.jpg) repeat;
   background-attachment: fixed;
 }
 .group-title-btn {
@@ -3885,7 +3953,7 @@ body.royal_loader {
 /* quote */
 .bg-quote-h8 {
   padding: 54px 0px;
-  background: url(images/bg-content/bg-subcri.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-subcri.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3905,7 +3973,7 @@ body.royal_loader {
 }
 /* Services */
 .bg-services-h8 {
-  background: url(images/bg-content/bg-services-h8.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-services-h8.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3931,7 +3999,7 @@ body.royal_loader {
 /* Find Advisor */
 .bg-find-adv-h8 {
   padding-bottom: 100px;
-  background: url(images/bg-content/bg-fdv-h8.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-fdv-h8.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -3954,7 +4022,7 @@ body.royal_loader {
 /* Home 9 */
 /* Cases */
 .bg-case-h9 {
-  background: url(frontend/images/bg-content/bg-cases-h9.png) no-repeat;
+  background: url(/frontend/images/bg-content/bg-cases-h9.png) no-repeat;
   background-attachment: fixed;
   background-position: top right;
 }
@@ -3977,7 +4045,7 @@ body.royal_loader {
 }
 /* Find advisor */
 .bg-fdv-h9 {
-  background: url(images/bg-content/bg-fdv-h9.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-fdv-h9.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4002,7 +4070,7 @@ body.royal_loader {
 }
 /* News  */
 .bg-news-h9 {
-  background: url(images/bg-content/bg-news-h9.jpg) repeat;
+  background: url(/frontend/images/bg-content/bg-news-h9.jpg) repeat;
   background-attachment: fixed;
 }
 .news-h9-warp {
@@ -4031,7 +4099,7 @@ body.royal_loader {
   margin-top: 30px;
 }
 .bg-location-h9 {
-  background: url(images/bg-content/bg-location-h9.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-location-h9.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4146,7 +4214,7 @@ body.royal_loader {
 }
 /* Testimonial */
 .bg-tw-h10 {
-  background: url(images/bg-content/cb-h7.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/cb-h7.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4329,7 +4397,7 @@ body.royal_loader {
 }
 /* FAQ Home 12 */
 .bg-fq-h12 {
-  background: url(images/bg-content/fq-h12.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/fq-h12.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4413,7 +4481,7 @@ body.royal_loader {
 }
 /* About Page  */
 .sh-about {
-  background: url(images/bg-content/sh-about.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-about.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4444,7 +4512,7 @@ body.royal_loader {
 }
 /* Cases Page  */
 .sh-cases {
-  background: url(images/bg-content/bg-quote-h2.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-quote-h2.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4481,7 +4549,7 @@ body.royal_loader {
   font-weight: bold;
 }
 .sh-contact {
-  background: url(images/bg-content/sh-contact.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-contact.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4552,7 +4620,7 @@ body.royal_loader {
   width: 100%;
 }
 .sh-team {
-  background: url(images/bg-content/sh-team.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-team.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4769,7 +4837,7 @@ body.royal_loader {
 }
 /* Services Page */
 .sh-services {
-  background: url(images/bg-content/bg-quote-h2.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-quote-h2.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -4848,6 +4916,11 @@ body.royal_loader {
   margin-bottom: 60px;
 }
 /* widget list link */
+.wd-list-link .active {
+    font-weight: bold;
+    color: #ff6600;
+}
+
 ul.wd-list-link {
   background: #f6f6f6;
   list-style: none;
@@ -4927,7 +5000,7 @@ ul.wd-list-link li.active a {
 }
 /* History Page */
 .sh-company-history {
-  background: url(images/bg-content/cb-h5.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/cb-h5.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -5100,7 +5173,7 @@ ul.wd-list-link li.active a {
 }
 /* News page */
 .sh-news {
-  background: url(images/bg-content/sh-news.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-news.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -5108,6 +5181,7 @@ ul.wd-list-link li.active a {
 .item-new-list {
   display: inline-block;
   width: 100%;
+  height:auto;
   position: relative;
   margin-bottom: 60px;
 }
@@ -5426,7 +5500,7 @@ ul.pagination li.active a {
 }
 /* Single Cases */
 .sh-case-single {
-  background: url(images/bg-content/bg-quote-h2.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-quote-h2.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -5506,7 +5580,7 @@ ul.pagination li.active a {
 }
 /* Single Services */
 .sh-single-services {
-  background: url(images/bg-content/sh-single-services.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-single-services.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -5791,7 +5865,7 @@ ul.pagination li.active a {
 }
 /* Career Page */
 .sh-career {
-  background: url(images/bg-content/sh-career.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-career.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
@@ -5905,7 +5979,7 @@ ul.pagination li.active a {
   height: 100vh;
 }
 .bg-404 {
-  background: url(images/bg-content/404.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/404.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-position: fixed;
@@ -6024,7 +6098,7 @@ ul.pagination li.active a {
   position: absolute;
   top: 0;
   right: 0;
-  background: url(frontend/images/bg-content/follow.png) no-repeat;
+  background: url(/frontend/images/bg-content/follow.png) no-repeat;
   width: 120px;
   height: 52px;
 }
@@ -6163,6 +6237,15 @@ ul.pagination li.active a {
 .table-cart .product-thumbnail img {
   width: 70px!important;
 }
+.badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 8px;
+    font-size: 12px;
+    vertical-align: top;
+}
+
 .quantity input {
   height: 31px;
   line-height: 31px;
@@ -6412,14 +6495,14 @@ ul.pagination li.active a {
 }
 /* Pricing */
 .sh-pricing {
-  background: url(images/bg-content/sh-pricing.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/sh-pricing.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   background-attachment: fixed;
 }
 /* Account */
 .bg-acc {
-  background: url(images/bg-content/bg-acc.jpg) no-repeat;
+  background: url(/frontend/images/bg-content/bg-acc.jpg) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
 }
@@ -6739,7 +6822,7 @@ ul.pagination li.active a {
   background: #1a1a1a;
 }
 .f-bg-img {
-  background: url(images/Footer/bg-footer-img.jpg) no-repeat;
+  background: url(/frontend/images/Footer/bg-footer-img.jpg) no-repeat;
   backgruond-size: cover;
   background-attachment: fixed;
 }
@@ -7096,7 +7179,7 @@ small.time {
      Copyright
      ========================================================================== */
 .cr-h1 {
-  background: url(images/Footer/cr-h1.jpg) no-repeat;
+  background: url(/frontend/images/Footer/cr-h1.jpg) no-repeat;
 }
 .cr-h4 {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -10669,7 +10752,7 @@ small.time {
   /* About */
   .about-h1 {
     position: relative;
-    background: url(frontend/images/bg-content/about-1.png) no-repeat;
+    background: url(/frontend/images/bg-content/about-1.png) no-repeat;
     background-position: top right;
   }
   /* Counter up home 1 */
@@ -11357,7 +11440,7 @@ small.time {
     margin-bottom: 0;
   }
   .about-warp-h10 {
-    background: url(images/bg-content/bg-about-h10.jpg) no-repeat;
+    background: url(/frontend/images/bg-content/bg-about-h10.jpg) no-repeat;
     -webkit-background-size: cover;
             background-size: cover;
     background-attachment: fixed;
@@ -11849,6 +11932,25 @@ small.time {
     width: 100%;
     display: inline-block;
   }
+
+  .fa-star {
+    color: gold;
+}
+
+.fa-star.disable {
+    color: #ccc; /* grey for empty stars */
+}
+
+.star-rating span {
+    font-size: 20px;
+    color: #ccc;
+}
+
+.star-rating span.filled {
+    color: gold;
+}
+
+
   .form-coupon .ot-btn {
     margin-top: 15px;
   }

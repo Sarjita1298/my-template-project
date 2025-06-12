@@ -21,6 +21,12 @@
 
         @yield('script')
 
+        <script>
+            if (window.location.hash === '#') {
+                history.replaceState(null, null, window.location.href.slice(0, -1));
+            }
+        </script>
+
 
     </div>
     
